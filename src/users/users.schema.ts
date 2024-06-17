@@ -12,16 +12,16 @@ export class User {
   password: string;
 
   @Prop({ required: true })
-  first_name: string;
-
-  @Prop({ required: false })
-  second_name: string;
-
-  @Prop({ required: true })
   first_lastname: string;
 
-  @Prop({ required: false })
-  second_lastname: string;
+  @Prop()
+  second_lastname?: string;
+
+  @Prop({ required: true })
+  first_name: string;
+
+  @Prop()
+  second_name?: string;
 
   @Prop({ default: Date.now })
   createdAt: Date;
