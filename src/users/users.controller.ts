@@ -53,9 +53,9 @@ export class UsersController {
   @Put(':id')
   async updateUser(
     @Param('id') id: string,
-    @Body() body: { email: string; password: string },
+    @Body() updateData: Partial<User>,
   ): Promise<User> {
-    return this.usersService.updateUser(id, body.email, body.password);
+    return this.usersService.updateUser(id, updateData);
   }
 
   @Delete(':id')
