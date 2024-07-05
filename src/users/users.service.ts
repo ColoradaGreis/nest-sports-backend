@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User, UserDocument } from './users.schema';
-import { supabase } from 'src/config/supabase.config';
+import { User, UserDocument } from '../schemas/user.schema';
+// import { supabase } from 'src/config/supabase.config';
 
 @Injectable()
 export class UsersService {
@@ -16,11 +16,11 @@ export class UsersService {
     first_name: string,
     second_name: string | null,
   ): Promise<User> {
-    const { error } = await supabase.auth.signUp({ email, password });
+    // const { error } = await supabase.auth.signUp({ email, password });
 
-    if (error) {
-      throw new Error(error.message);
-    }
+    // if (error) {
+    //   throw new Error(error.message);
+    // }
     const createdUser = new this.userModel({
       email,
       password,

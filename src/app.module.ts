@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { SupabaseModule } from './supabase/supabase.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { GroupModule } from './group/group.module';
+import { MatchModule } from './match/match.module';
 
 @Module({
   imports: [
@@ -18,8 +19,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
-    SupabaseModule,
     UsersModule,
+    GroupModule,
+    MatchModule,
   ],
   controllers: [],
   providers: [],
