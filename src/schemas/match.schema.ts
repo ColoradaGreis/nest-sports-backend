@@ -2,18 +2,21 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 @Schema()
-class Player {
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  userId: Types.ObjectId; // Referencia al User original
+class Player extends Document {
+  @Prop({ required: true })
+  isUser: boolean;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: false })
+  userId?: Types.ObjectId; // Referencia al User original
 
   @Prop({ required: true })
-  originalName: string; // Nombre del usuario en el momento del partido
+  name: string; // Nombre del usuario en el momento del partido
 }
 
 const PlayerSchema = SchemaFactory.createForClass(Player);
 
 @Schema()
-class Team {
+class Team extends Document {
   @Prop({ type: [PlayerSchema], required: true })
   players: Player[];
 }
