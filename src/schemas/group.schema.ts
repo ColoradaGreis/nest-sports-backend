@@ -3,8 +3,10 @@ import { Document, Types } from 'mongoose';
 import { User } from './user.schema';
 import { Match } from './match.schema';
 
+export type GroupDocument = Group & Document;
+
 @Schema()
-export class Group extends Document {
+export class Group {
   @Prop({ required: true })
   name: string;
 
