@@ -2,33 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from '../schemas/user.schema';
+import { CreateUserDto } from './dto/create-users.dto';
 // import { supabase } from 'src/config/supabase.config';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async createUser(
-    email: string,
-    password: string,
-    first_lastname: string,
-    second_lastname: string | null,
-    first_name: string,
-    second_name: string | null,
-  ): Promise<User> {
+  async createUser(createdUserDto: CreateUserDto): Promise<User> {
     // const { error } = await supabase.auth.signUp({ email, password });
 
     // if (error) {
     //   throw new Error(error.message);
     // }
-    const createdUser = new this.userModel({
-      email,
-      password,
-      first_lastname,
-      second_lastname,
-      first_name,
-      second_name,
-    });
+    const createdUser = new this.userModel(createdUserDto);
     return createdUser.save();
   }
 
