@@ -18,6 +18,9 @@ export class Group {
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'Match' }], default: [] })
   matches: Match[];
+
+  @Prop({ required: true })
+  sports: Array<string>;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);

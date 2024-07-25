@@ -18,4 +18,9 @@ export class CreateGroupDto {
   @IsArray()
   @IsString({ each: true })
   matches?: string[];
+
+  @IsNotEmpty()
+  @IsArray()
+  @IsString({ each: true })
+  sports: string[];
 }
