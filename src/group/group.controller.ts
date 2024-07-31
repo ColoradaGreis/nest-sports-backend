@@ -39,4 +39,14 @@ export class GroupController {
   remove(@Param('id') id: string) {
     return this.groupService.remove(id);
   }
+
+  @Get('own/:userId')
+  async getOwnGroups(@Param('userId') userId: string) {
+    return this.groupService.findGroupsByUser(userId);
+  }
+
+  @Get('other/:userId')
+  async getOtherGroups(@Param('userId') userId: string) {
+    return this.groupService.findGroupsNotByUser(userId);
+  }
 }

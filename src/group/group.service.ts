@@ -21,7 +21,15 @@ export class GroupService {
   }
 
   async findOne(id: string): Promise<Group> {
-    const group = await this.groupModel.findById(id).exec();
+    const group = await this.groupModel
+      .findById(id)
+      .populate('owner')
+      .populate({
+        path: 'members',
+        model: 'User',
+      })
+      // .populate('matches')
+      .exec();
     if (!group) {
       throw new NotFoundException(`Group with ID "${id}" not found`);
     }
@@ -44,5 +52,13 @@ export class GroupService {
       throw new NotFoundException(`Group with ID "${id}" not found`);
     }
     return deletedGroup;
+  }
+
+  async findGroupsByUser(userId: string): Promise<Group[]> {
+    return this.groupModel.find({ members: userId }).exec();
+  }
+
+  async findGroupsNotByUser(userId: string): Promise<Group[]> {
+    return this.groupModel.find({ members: { $ne: userId } }).exec();
   }
 }
