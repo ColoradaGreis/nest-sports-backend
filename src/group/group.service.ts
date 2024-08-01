@@ -17,7 +17,17 @@ export class GroupService {
   }
 
   async findAll(): Promise<Group[]> {
-    return this.groupModel.find().exec();
+    return (
+      this.groupModel
+        .find()
+        .populate('owner')
+        .populate({
+          path: 'members',
+          model: 'User',
+        })
+        // .populate('matches')
+        .exec()
+    );
   }
 
   async findOne(id: string): Promise<Group> {
