@@ -8,7 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './users.schema';
+import { User } from '../schemas/user.schema';
+import { CreateUserDto } from './dto/create-users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -17,32 +18,9 @@ export class UsersController {
   @Post()
   async createUser(
     @Body()
-    body: {
-      email: string;
-      password: string;
-      first_lastname: string;
-      second_lastname?: string;
-      first_name: string;
-      second_name?: string;
-    },
+    createUserDto: CreateUserDto,
   ): Promise<User> {
-    const {
-      email,
-      password,
-      first_lastname,
-      second_lastname,
-      first_name,
-      second_name,
-    } = body;
-
-    return this.usersService.createUser(
-      email,
-      password,
-      first_lastname,
-      second_lastname || null,
-      first_name,
-      second_name || null,
-    );
+    return this.usersService.createUser(createUserDto);
   }
 
   @Get(':id')
